@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+---
+pnpm create next-app count-up typescript
+
+https://nextjs.org/
+https://tailwindcss.com/
+https://daisyui.com/
+[Grid Generator Tailwind] https://www.designtoolshub.com/tailwind-css/grid-generator
+[Components on top of Tailwind CSS] https://flowbite.com/
+
+
+FORMS
+https://react-hook-form.com/ + https://zod.dev/
+
+Please, copy this code on your website to accredit the author:
+<a href="http://www.freepik.com">Designed by pikisuperstar / Freepik</a>
