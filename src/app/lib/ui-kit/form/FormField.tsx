@@ -2,6 +2,7 @@ import React, {HTMLInputTypeAttribute} from "react";
 import clsx from "clsx";
 import {Control, FieldError, UseFormRegister} from "react-hook-form";
 import {IFormData} from "@/app/lib/ui-kit/form/typeFormProps";
+import FieldErrorLabel from "@/app/lib/ui-kit/form/FieldErrorLabel";
 
 export type FormFieldProps = {
   type: HTMLInputTypeAttribute;
@@ -66,13 +67,7 @@ const FormField: React.FC<FormFieldProps> = (ffp) => {
              placeholder={ffp.placeholder}
              {...ffp.register(ffp.name, {valueAsNumber: ffp.valueAsNumber})}
       />
-      <div className="label">
-        {ffp.error &&
-            <span className="label-text-alt error-message text-error">
-              {ffp.error.message}
-            </span>
-        }
-      </div>
+      <FieldErrorLabel error={ffp.error}/>
     </label>
   )
 }

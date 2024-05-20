@@ -17,16 +17,16 @@ export function StepperCustom() {
     handleSubmit,
     formState: {errors,},
     setError,
+    setValue,
     control
   } = useForm<IFormData>({resolver: zodResolver(formSchema)});
-
 
   const onSubmit = async (data: FormData) => {
     console.log("SUCCESS", data);
   }
 
   const handleClickOfImage =  (event: string | undefined) => {
-    console.log("Click of image", event);
+    setValue("bgImage", event)
   }
 
 
@@ -56,7 +56,7 @@ export function StepperCustom() {
             name="fontStyle"
             register={register}
             error={errors.eventName as FieldError}
-            options={["we", "as"]}
+            options={["wasde", "aasds"]}
             control={control}
           />
 
@@ -72,12 +72,21 @@ export function StepperCustom() {
           <SelectableImageList
             handleClickOfImage={handleClickOfImage}
             listImages={[
-              {alt:"Image",label:"Party", src:"/countdown-design/website-banner/party.jpg"},
-              {alt:"Image",label:"Birthday", src:"/countdown-design/website-banner/birthday.jpg"},
-              {alt:"Image",label:"Holiday", src:"/countdown-design/website-banner/holiday.jpg"},
+              {alt: "Image", label: "Party", src: "/countdown-design/website-banner/party.jpg"},
+              {alt: "Image", label: "Birthday", src: "/countdown-design/website-banner/birthday.jpg"},
+              {alt: "Image", label: "Holiday", src: "/countdown-design/website-banner/holiday.jpg"},
             ]}
 
-            name="image" />
+            name="image"
+
+          />
+          <div className="label">
+            {errors.bgImage as FieldError &&
+                <span className="label-text-alt error-message text-error">
+              {errors.bgImage.message}
+            </span>
+            }
+          </div>
           <button
             type="submit"
             className={clsx("submit-button btn btn-primary")}

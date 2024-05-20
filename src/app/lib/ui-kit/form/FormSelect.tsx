@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import {Control, FieldError, UseFormRegister} from "react-hook-form";
 import {IFormData} from "@/app/lib/ui-kit/form/typeFormProps";
+import FieldErrorLabel from "@/app/lib/ui-kit/form/FieldErrorLabel";
 
 
 export type FormSelectProps = {
@@ -39,13 +40,7 @@ const FormSelect: React.FC<FormSelectProps> = (ffp) => {
           </option>
         ))}
       </select>
-      <div className="label">
-        {ffp.error &&
-            <span className="label-text-alt error-message text-error">
-              {ffp.error.message}
-            </span>
-        }
-      </div>
+      <FieldErrorLabel error={ffp.error}/>
     </label>
   )
 }
