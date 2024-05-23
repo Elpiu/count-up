@@ -9,6 +9,6 @@ export type ImageItem = {
 export const QUARY_SEARCH = {
   date: "date",
   theme: "theme",
-  font: "font",
-  name: "name"
+  font: "fontStyle",
+  name: "eventName"
 }

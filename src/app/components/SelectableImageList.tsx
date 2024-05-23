@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import {ImageItem} from "@/app/types/common";
 import clsx from "clsx";
+import ErrorLabel from "@/app/lib/ui-kit/ErrorLabel";
+import {FieldError} from "react-hook-form";
 
 
 type ImageListProps = {
@@ -16,6 +18,7 @@ type ImageListProps = {
 type SelectedImageListProps = {
   listImages: ImageItem[];
   handleClickOfImage: (image: string | undefined) => void;
+  error?: string | FieldError;
 }
 
 const ImageOnList: React.FC<ImageListProps> = (
@@ -39,7 +42,7 @@ const ImageOnList: React.FC<ImageListProps> = (
   );
 };
 
-const SelectableImageList: React.FC<SelectedImageListProps> = ({listImages, handleClickOfImage}) => {
+const SelectableImageList: React.FC<SelectedImageListProps> = ({listImages, handleClickOfImage, error}) => {
 
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
@@ -62,7 +65,7 @@ const SelectableImageList: React.FC<SelectedImageListProps> = ({listImages, hand
         />
       </div>
     ))}
-
+    {error && <ErrorLabel error={error}/>}
 
   </div>
 

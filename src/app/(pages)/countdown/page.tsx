@@ -3,19 +3,17 @@
 import {useSearchParams} from "next/navigation";
 import {QUARY_SEARCH} from "@/app/types/common";
 import CounterDown from "@/app/lib/CounterDown";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {motion} from "framer-motion";
 
 
 const Countdown = () => {
-  const searchParams = useSearchParams()
-  const defaultTheme = ""
-  const defaultFont = ""
+  const searchParams = useSearchParams();
 
-  //TODO EM
-  const date = searchParams.get(QUARY_SEARCH.date) || new Date("Mon May 22 2024 08:22:01")
-  const theme = searchParams.get(QUARY_SEARCH.theme) || defaultTheme
-  const font = searchParams.get(QUARY_SEARCH.font) || defaultFont
-  const name = searchParams.get(QUARY_SEARCH.name) || ""
+  const date = searchParams.get(QUARY_SEARCH.date) || new Date(new Date().getMilliseconds() + 1500 * 60);
+  const theme = searchParams.get(QUARY_SEARCH.theme) || "defaultTheme";
+  const font = searchParams.get(QUARY_SEARCH.font) || "defaultFont";
+  const eventName = searchParams.get(QUARY_SEARCH.name) || "Hello World!";
 
   const targetDate = new Date(date).getTime();
   const [timeLeft, setTimeLeft] = useState(targetDate - Date.now());
@@ -46,11 +44,23 @@ const Countdown = () => {
   const {days, hours, minutes, seconds} = calculateTimeUnits(timeLeft);
 
   return (
-    <>
-      <p>Search: {name}</p>
-      <CounterDown days={days} hours={hours} minutes={minutes} seconds={seconds}/>
-    </>
-  );
+    <div className="flex flex-row items-center justify-center h-screen prose-max">
+      <div className="text-center prose">
+        <h1 className="text-5xl font-bold">{eventName}</h1>
+        <div className="p-12">
+          <motion.div className="py-6"
+                      initial={{opacity: 0, y: 50}} // Initial position and opacity
+                      animate={{opacity: 1, y: 0}} // Animation to fully visible and original position
+                      transition={{duration: 0.5, delay: 0.2}} // Animation duration and delay
+          >
+            <CounterDown days={days} hours={hours} minutes={minutes} seconds={seconds}/>
+
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  )
+    ;
 }
 
 export default Countdown;

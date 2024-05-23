@@ -2,14 +2,13 @@ import React from "react";
 import {FieldError, useForm} from "react-hook-form";
 import FormField from "@/app/lib/ui-kit/form/FormField";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {formSchema} from "@/app/types/form";
+import {FirstFormData, formSchema} from "@/app/types/form";
 import clsx from "clsx";
 import {IFormData} from "@/app/lib/ui-kit/form/typeFormProps";
-import FormSelect from "@/app/lib/ui-kit/form/FormSelect";
-import SelectableImageList from "@/app/components/SelectableImageList";
-
+import {useRouter} from 'next/navigation';
 
 export function StepperCustom() {
+  const router = useRouter();
 
 
   const {
@@ -21,13 +20,20 @@ export function StepperCustom() {
     control
   } = useForm<IFormData>({resolver: zodResolver(formSchema)});
 
-  const onSubmit = async (data: FormData) => {
-    console.log("SUCCESS", data);
+  const onSubmit = async (data: FirstFormData) => {
+    const {date, eventName, fontStyle} = data;
+    const serializedParams = new URLSearchParams({date, eventName, fontStyle}).toString();
+    router.push(`/countdown?${serializedParams}`);
   }
 
-  const handleClickOfImage =  (event: string | undefined) => {
+  const handleClickOfImage = (event: string | undefined) => {
     setValue("bgImage", event)
   }
+  //const imageList = [
+  //  {alt: "Image", label: "Party", src: "/countdown-design/website-banner/party.jpg"},
+  //  {alt: "Image", label: "Birthday", src: "/countdown-design/website-banner/birthday.jpg"},
+  //  {alt: "Image", label: "Holiday", src: "/countdown-design/website-banner/holiday.jpg"},
+  //];
 
 
   return <div className="">
@@ -52,13 +58,6 @@ export function StepperCustom() {
             error={errors.eventName as FieldError}
             control={control}
           />
-          <FormSelect
-            name="fontStyle"
-            register={register}
-            error={errors.eventName as FieldError}
-            options={["wasde", "aasds"]}
-            control={control}
-          />
 
           <FormField
             type="datetime-local"
@@ -69,24 +68,7 @@ export function StepperCustom() {
             error={errors.date as FieldError}
             control={control}
           />
-          <SelectableImageList
-            handleClickOfImage={handleClickOfImage}
-            listImages={[
-              {alt: "Image", label: "Party", src: "/countdown-design/website-banner/party.jpg"},
-              {alt: "Image", label: "Birthday", src: "/countdown-design/website-banner/birthday.jpg"},
-              {alt: "Image", label: "Holiday", src: "/countdown-design/website-banner/holiday.jpg"},
-            ]}
 
-            name="image"
-
-          />
-          <div className="label">
-            {errors.bgImage as FieldError &&
-                <span className="label-text-alt error-message text-error">
-              {errors.bgImage.message}
-            </span>
-            }
-          </div>
           <button
             type="submit"
             className={clsx("submit-button btn btn-primary")}
@@ -100,3 +82,18 @@ export function StepperCustom() {
   </div>
 
 }
+
+//<FormSelect
+//  name="fontStyle"
+//  register={register}
+//  error={errors.eventName as FieldError}
+//  options={["wasde", "aasds"]}
+//  control={control}
+///>
+
+//<SelectableImageList
+//  handleClickOfImage={handleClickOfImage}
+//  listImages={imageList}
+//  error={errors.bgImage as FieldError}
+//  name="image"
+///>
