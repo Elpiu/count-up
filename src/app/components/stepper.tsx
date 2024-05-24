@@ -1,5 +1,5 @@
 import React from "react";
-import {FieldError, useForm} from "react-hook-form";
+import {FieldError, SubmitHandler, useForm} from "react-hook-form";
 import FormField from "@/app/lib/ui-kit/form/FormField";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {FirstFormData, formSchema} from "@/app/types/form";
@@ -20,7 +20,7 @@ export function StepperCustom() {
     control
   } = useForm<IFormData>({resolver: zodResolver(formSchema)});
 
-  const onSubmit = async (data: FirstFormData) => {
+  const onSubmit: SubmitHandler<IFormData> = async (data) => {
     const {date, eventName, fontStyle} = data;
     const serializedParams = new URLSearchParams({date, eventName, fontStyle}).toString();
     router.push(`/countdown?${serializedParams}`);

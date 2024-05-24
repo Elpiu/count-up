@@ -3,11 +3,11 @@
 import {useSearchParams} from "next/navigation";
 import {QUARY_SEARCH} from "@/app/types/common";
 import CounterDown from "@/app/lib/CounterDown";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import {motion} from "framer-motion";
 
 
-const Countdown = () => {
+const CountdownContent  = () => {
   const searchParams = useSearchParams();
 
   const date = searchParams.get(QUARY_SEARCH.date) || new Date(new Date().getMilliseconds() + 1500 * 60);
@@ -62,5 +62,13 @@ const Countdown = () => {
   )
     ;
 }
+
+const Countdown = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CountdownContent />
+    </Suspense>
+  );
+};
 
 export default Countdown;
